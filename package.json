@@ -1,0 +1,23 @@
+{
+  "name": "strive-cli-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/strive-cli-monitor.js",
+  "scripts": {
+    "build": "webpack --config webpack.build.config.js",
+    "dev": "webpack-dev-server --config webpack.dev.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.3",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "qs": "^6.11.0"
+  }
+}

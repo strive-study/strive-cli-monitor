@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      strive-app-id="1"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>脚手架监控测试</title>
+    <script>
+      function addDom() {
+        const body = document.body;
+        const div = document.createElement("div");
+        div.innerHTML = "你好";
+        div.className = "new-dom";
+        div.setAttribute("appear", "");
+        div.style.backgroundColor = "green";
+        body.insertBefore(div, body.firstChild);
+        window.StriveCliMonitor.collectAppear();
+      }
+
+      function onJump(){
+        window.StriveCliMonitor.sendClick({
+          jumpUrl:'https://www.baidu.com'
+        });
+
+      }
+    </script>
+  </head>
+  <body strive-page-id="1">
+    <a href="www.baidu.com" onclick="onJump()">跳转到百度</a>
+    <!-- 1 -->
+    <button onClick="addDom()">点击我</button>
+    <!-- 2 -->
+    <div style="height: 2000px; background-color: red"></div>
+    <div
+      class="demo2"
+      style="height: 100px; background-color: yellow"
+      appear
+    ></div>
+    <!-- <script src="
+  https://strive-cli.oss-cn-beijing.aliyuncs.com/strive-cli-monitor.js"></script> -->
+    <script>
+      document
+        .getElementsByClassName("demo2")[0]
+        .addEventListener("onAppear", (e) => {
+          window.StriveCliMonitor.sendExp();
+          console.log("demo2 appear");
+        });
+      document
+        .getElementsByClassName("demo2")[0]
+        .addEventListener("onDisappear", (e) => {
+          console.log("demo2 disappear");
+        });
+      window.onload = function () {
+        let monitor = window.StriveCliMonitor;
+        monitor.registerBeforeCreateParams(() => {
+          console.log("BeforeCreateParams");
+        });
+        monitor.registerBeforeUpload((params) => {
+          return params + "&custom=1";
+        });
+        monitor.registerAfterUpload((url, uploadData) => {
+          console.log("上传完毕", url, uploadData);
+        });
+        monitor.registerOnError((error) => {
+          console.log("有错误", error);
+        });
+        monitor.sendPV();
+      };
+    </script>
+  </body>
+</html>
